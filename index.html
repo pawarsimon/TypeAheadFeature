@@ -88,7 +88,7 @@
 <body>
 
     <form class="search-form">
-        <input type="text" class="search" placeholder="City or State">
+        <input type="text" class="search" placeholder="Airport Name">
         <ul class="suggestions">
             <li>Filter for a city</li>
             <li>or a state</li>
@@ -103,7 +103,7 @@
         {
             return airports.filter(place => {
                 const regex = new RegExp(wordsToMatch, 'gi');
-                return place.city.match(regex) || place.country.match(regex)
+                return place.city.match(regex) || place.country.match(regex) || place.name.match(regex)
             });
         }
 
@@ -116,9 +116,10 @@
                 const regex = new RegExp(this.value, 'gi');
                 const cityName = place.city.replace(regex, `<span class = "hl"> ${this.value}</span>`);
                 const countryName = place.country.replace(regex, `<span class = "hl"> ${this.value}</span>`);
+                const name = place.name.replace(regex, `<span class = "hl"> ${this.value}</span>`);
                 return `
                     <li>
-                        <span class = "name">${cityName}, ${countryName}</span>
+                        <span class = "name">${cityName}, ${name}</span>
                         <span class = "population">${place.code}</span>
                     </li>
                 `;
